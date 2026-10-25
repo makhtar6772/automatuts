@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n and Google Sheets: Build a Form Automation Step by Step – AutomaTuts</title>
+<meta name="description" content="Learn how to build your first n8n workflow: create a form, send submissions to Google Sheets, and add Slack or Gmail steps. Beginner-friendly guide.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://automatuts.site/n8n-google-sheets-form-workflow.html">
+<meta property="og:title" content="n8n and Google Sheets: Build a Form Automation Step by Step">
+<meta property="og:description" content="Learn how to build your first n8n workflow: create a form, send submissions to Google Sheets, and add Slack or Gmail steps. Beginner-friendly guide.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://automatuts.site/n8n-google-sheets-form-workflow.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{--bg:#f6f7f9;--fg:#101828;--mut:#5b6678;--card:#fff;--bd:#dde1e8;--ac:#0f766e;--hi:#f59e0b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9aa6b6;--card:#151b24;--bd:#263040;--ac:#2dd4bf;--hi:#fbbf24}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+h1,h2,h3,.logo{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.w{max-width:1080px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 0}
+.logo{font-weight:700;font-size:1.4rem;text-decoration:none;color:var(--fg)}
+.logo b{color:var(--ac)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--fg);text-decoration:none;font-weight:500;padding:6px 12px;border-radius:8px;display:block}
+nav ul a:hover{background:var(--card)}
+nav ul a.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+main{padding:36px 0 56px}
+.hero{padding:48px 0 28px;max-width:760px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 16px}
+.hero p{color:var(--mut);font-size:1.15rem;margin:0 0 24px;max-width:620px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border:0;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:1rem;font-family:inherit}
+@media(prefers-color-scheme:dark){.btn{color:#04201d}}
+.btn:hover{filter:brightness(1.1)}
+h2{font-size:1.6rem;margin:44px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:6px;padding:22px}
+.card:nth-child(even){border-left-color:var(--hi)}
+.card small{color:var(--mut);font-weight:600}
+.card h3{margin:6px 0 8px;font-size:1.2rem;line-height:1.35}
+.card p{margin:0;color:var(--mut);font-size:.95rem}
+.topics{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+.topics li{border:1px solid var(--bd);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.92rem}
+.doc{max-width:760px;margin:auto}
+.doc h1{font-size:2.3rem;line-height:1.2;margin:10px 0 6px}
+.doc h2{font-size:1.35rem;margin:34px 0 8px}
+.doc .date{color:var(--mut);margin:0 0 24px}
+.doc li{margin-bottom:6px}
+.note{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--hi);padding:14px 18px;border-radius:6px}
+form{display:grid;gap:16px;margin-top:20px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+textarea{min-height:150px;resize:vertical}
+#status{font-weight:600;color:var(--ac);min-height:1.5em}
+footer{border-top:1px solid var(--bd);padding:28px 0;color:var(--mut);font-size:.92rem}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--mut);margin-right:16px}
+footer a:hover{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.doc h3{font-size:1.15rem;margin:24px 0 6px}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:18px 0}.meta{color:var(--mut);margin:0 0 20px}.card h3 a{color:inherit;text-decoration:none}.card h3 a:hover{color:var(--ac);text-decoration:underline}.shot{margin:18px 0}.shot img{max-width:100%;height:auto;border-radius:8px;display:block}.shot .ph{border:2px dashed var(--ac);border-radius:8px;padding:34px 16px;text-align:center;color:var(--mut);font-weight:600}.shot figcaption{color:var(--mut);font-size:.9rem;margin-top:6px;text-align:center}</style>
+</head>
+<body>
+<header>
+<div class="w">
+<nav aria-label="Main navigation">
+<a class="logo" href="index.html">Automa<b>Tuts</b></a>
+<ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article class="doc">
+<h1>n8n and Google Sheets: Build a Form Automation Step by Step</h1>
+<p class="meta">Published October 25, 2026 &middot; 8 min read</p>
+<p>If you want to automate small business tasks without paying for an expensive tool, <strong>n8n</strong> is worth a look. It is a workflow automation platform you can use as an alternative to Make or Zapier.</p>
+<p>In this guide you will build a beginner workflow: a form that collects new project requests and saves every submission as a new row in <strong>Google Sheets</strong>. Once it works, you can add more apps on top.</p>
+
+<h2>What you will build</h2>
+<p>The workflow has just two nodes. A node is one step in an automation.</p>
+<ul>
+<li><strong>Trigger:</strong> an n8n form that people fill out</li>
+<li><strong>Action:</strong> a Google Sheets node that adds the submitted data as a new row</li>
+</ul>
+<p>The form will collect five details for each new project: client name, project name, email, start date and project description.</p>
+
+<h2>Before you start</h2>
+<ul>
+<li>An n8n account (there is a free trial, covered below)</li>
+<li>A Google account</li>
+<li>A Google Sheet with a header row. Name the sheet tab <strong>New Projects</strong> and add these five columns: <strong>Client Name, Project Name, Email, Start Date, Project Description</strong></li>
+</ul>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/google-sheet-columns.png" alt="The Google Sheet with the five columns" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Your Google Sheet with the five column headers<br>Save as images/google-sheet-columns.png</div><figcaption>The Google Sheet with the five columns</figcaption></figure>
+
+<h2>Step 1: Create your n8n account</h2>
+<ol>
+<li>Open your browser and go to <strong>n8n.io</strong>.</li>
+<li>Click <strong>Get started for free</strong>.</li>
+<li>Answer a few questions to create your account. You will land in your n8n dashboard.</li>
+</ol>
+<p>New accounts get a <strong>14-day free trial</strong>, which is enough time to see whether n8n suits your business.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/n8n-dashboard.png" alt="The n8n dashboard" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The n8n dashboard after signing in<br>Save as images/n8n-dashboard.png</div><figcaption>The n8n dashboard</figcaption></figure>
+
+<h2>Step 2: Create a new workflow</h2>
+<p>Click the option to create a new workflow. You will see an empty canvas. This is where you add and connect your nodes.</p>
+
+<h2>Step 3: Add the form trigger</h2>
+<p>Click <strong>Add first step</strong> and choose <strong>On form submission</strong>. This node lets you build a form inside n8n and capture whatever people submit. It is the trigger that starts your workflow.</p>
+<h3>Set the form title and description</h3>
+<ul>
+<li><strong>Form title:</strong> New Projects</li>
+<li><strong>Form description:</strong> Let's start a new project together</li>
+</ul>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/form-trigger-settings.png" alt="Form title and description in the trigger node" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The On form submission node with title and description filled in<br>Save as images/form-trigger-settings.png</div><figcaption>Form title and description in the trigger node</figcaption></figure>
+
+<h3>Add the form fields</h3>
+<p>In n8n, form fields are called <strong>elements</strong>. Scroll down and add them one at a time. Each element lets you pick an element type, such as text, email, date, dropdown or file.</p>
+<ul>
+<li><strong>Client Name:</strong> text type, marked as required</li>
+<li><strong>Project Name:</strong> text type, marked as required</li>
+<li><strong>Email:</strong> email type</li>
+<li><strong>Start Date:</strong> date picker type, not required</li>
+<li><strong>Project Description:</strong> text type, placeholder "Please describe your project", marked as required</li>
+</ul>
+<p>Placeholders are optional. Leave them empty where you do not need them.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/form-elements.png" alt="The five form elements in n8n" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The list of form elements (client name, project name, email, start date, description)<br>Save as images/form-elements.png</div><figcaption>The five form elements in n8n</figcaption></figure>
+
+<p>Leave the <strong>Respond when form is submitted</strong> setting as it is.</p>
+
+<h2>Step 4: Test the form</h2>
+<ol>
+<li>Click <strong>Execute step</strong> at the top of the node.</li>
+<li>A test form opens. Fill it in with sample data, including a test email and a start date from the date picker.</li>
+<li>Click <strong>Submit</strong>. You will see a message that your response has been recorded.</li>
+</ol>
+<p>Back in n8n, the node shows a green tick and the submitted data appears in the output panel. You can view it as a <strong>table</strong>, a <strong>schema</strong> or <strong>JSON</strong>.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/test-form.png" alt="Filling in the test form" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The test form filled in with sample data<br>Save as images/test-form.png</div><figcaption>Filling in the test form</figcaption></figure>
+
+<p>Click <strong>Pin</strong> on the output. Pinned data is reused in later test runs, so you do not have to fill in the form again every time.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/node-output-pinned.png" alt="Pinned test data in the output panel" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The node output with data pinned (table view)<br>Save as images/node-output-pinned.png</div><figcaption>Pinned test data in the output panel</figcaption></figure>
+
+<h2>Step 5: Send the form data to Google Sheets</h2>
+<p>Go back to the canvas and click the <strong>plus (+)</strong> icon next to your trigger. Search for <strong>Google Sheets</strong> and open the node. From the list of actions, choose <strong>Append row in sheet</strong>. This adds a new row to your sheet each time the form is submitted.</p>
+<h3>Connect your Google account</h3>
+<ol>
+<li>Open the <strong>Credential to connect with</strong> dropdown and choose <strong>Create new credential</strong>.</li>
+<li>Click <strong>Sign in with Google</strong> and approve access.</li>
+<li>Close the credential window and select your Google Sheets account.</li>
+</ol>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/google-sheets-credential.png" alt="Connecting Google Sheets to n8n" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Create new credential window with Sign in with Google<br>Save as images/google-sheets-credential.png</div><figcaption>Connecting Google Sheets to n8n</figcaption></figure>
+
+<h3>Choose the document and sheet</h3>
+<ul>
+<li><strong>Resource:</strong> Sheet Within Document</li>
+<li><strong>Operation:</strong> Append Row</li>
+<li><strong>Document:</strong> select your Google Sheets file</li>
+<li><strong>Sheet:</strong> New Projects</li>
+</ul>
+<h3>Map the columns</h3>
+<p>You can map columns automatically or by hand. Mapping by hand makes sure every column gets the right data, so choose the manual option.</p>
+<p>Your five columns show up in the node. Drag each field from the input panel on the left into the matching column:</p>
+<ul>
+<li>Client Name &rarr; Client Name</li>
+<li>Project Name &rarr; Project Name</li>
+<li>Email &rarr; Email</li>
+<li>Start Date &rarr; Start Date</li>
+<li>Project Description &rarr; Project Description</li>
+</ul>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/column-mapping.png" alt="Mapping form fields to sheet columns" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheets node with all five columns mapped by dragging fields<br>Save as images/column-mapping.png</div><figcaption>Mapping form fields to sheet columns</figcaption></figure>
+
+<h2>Step 6: Check that it works</h2>
+<p>Click <strong>Execute step</strong>. The node should finish with a green tick. Then open your Google Sheet. The test submission should now appear as a new row.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/sheet-new-row.png" alt="The new row in Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheet showing the new row added by n8n<br>Save as images/sheet-new-row.png</div><figcaption>The new row in Google Sheets</figcaption></figure>
+
+<p>Go back to the canvas and you will see the full flow: the form trigger on the left, connected to the Google Sheets node. Each time someone submits the form, a new row is added.</p>
+
+<h2>Step 7: Add more steps (optional)</h2>
+<p>Click the plus icon on the last node to add more actions. You can also add a filter, a branch to split the flow, a merge or a loop.</p>
+<ul>
+<li><strong>Slack:</strong> add the Slack node and choose <strong>Send a message</strong> to notify your team in a channel when a form comes in.</li>
+<li><strong>Gmail:</strong> add the Gmail node and choose <strong>Send a message</strong> to email the person who filled in the form. Use the client email from the form as the recipient, then write the subject and the body of your confirmation or welcome email.</li>
+</ul>
+<p>Each new app needs its own connection, just like you set up for Google Sheets.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/canvas-extra-nodes.png" alt="Adding Slack or Gmail after Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The canvas with extra Slack or Gmail nodes added<br>Save as images/canvas-extra-nodes.png</div><figcaption>Adding Slack or Gmail after Google Sheets</figcaption></figure>
+
+<p>On the canvas you can zoom in and out, or scroll with your mouse or touchpad.</p>
+
+<h2>Step 8: Save, enable and share your form</h2>
+<ol>
+<li>Click <strong>Save</strong> to save the workflow.</li>
+<li>Switch the workflow on with the <strong>Enable</strong> (activate) option.</li>
+<li>Open the form trigger node and click <strong>Production URL</strong>.</li>
+<li>Copy the link.</li>
+</ol>
+<p>That production URL is your live form. Put it on your website or share it anywhere you want to collect new project requests.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/production-url.png" alt="The Production URL of your form" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The form trigger node showing the Production URL<br>Save as images/production-url.png</div><figcaption>The Production URL of your form</figcaption></figure>
+
+<h2>Quick summary</h2>
+<ul>
+<li>Create an n8n account and start a new workflow.</li>
+<li>Add an <strong>On form submission</strong> trigger and build your form fields.</li>
+<li>Add a <strong>Google Sheets</strong> node with the <strong>Append row in sheet</strong> action.</li>
+<li>Map each form field to a column, test it, then save and enable the workflow.</li>
+<li>Share the <strong>Production URL</strong> to start collecting submissions.</li>
+</ul>
+<p>Did something not work, or did you get stuck on a step such as the Google sign-in or column mapping? Send us a message on the <a href="contact.html">contact page</a> or leave a comment on the <a href="https://www.youtube.com/watch?v=_vJOHFcK2KY" target="_blank" rel="noopener">original video</a>, and we will help you out.</p>
+<p class="note"><strong>Credit:</strong> This guide is based on the YouTube video by <strong>Sheetify CRM</strong>. Watch the original here: <a href="https://www.youtube.com/watch?v=_vJOHFcK2KY" target="_blank" rel="noopener">n8n and Google Sheets tutorial by Sheetify CRM</a>. All product names belong to their respective owners, and features or menu names may have changed since the video was published.</p>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"n8n and Google Sheets: Build a Form Automation Step by Step","description":"Learn how to build your first n8n workflow: create a form, send submissions to Google Sheets, and add Slack or Gmail steps. Beginner-friendly guide.","datePublished":"2026-10-25","mainEntityOfPage":"https://automatuts.site/n8n-google-sheets-form-workflow.html","publisher":{"@type":"Organization","name":"AutomaTuts"}}</script>
+</main>
+<footer>
+<div class="w">
+<div>&copy; 2026 AutomaTuts.site. All rights reserved.</div>
+<div><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div>
+</div>
+</footer>
+
+</body>
+</html>
