@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude AI Explained: A Beginner's Guide to Every Major Feature – AutomaTuts</title>
+<meta name="description" content="Learn what Claude can do: Projects, Cowork, Claude Code, Design, Artifacts, Connectors, Skills and more, explained step by step for beginners.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://automatuts.site/claude-ai-beginners-guide.html">
+<meta property="og:title" content="Claude AI Explained: A Beginner's Guide to Every Major Feature">
+<meta property="og:description" content="Learn what Claude can do: Projects, Cowork, Claude Code, Design, Artifacts, Connectors, Skills and more, explained step by step for beginners.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://automatuts.site/claude-ai-beginners-guide.html">
+<meta name="twitter:card" content="summary">
+<style>
+:root{--bg:#f6f7f9;--fg:#101828;--mut:#5b6678;--card:#fff;--bd:#dde1e8;--ac:#0f766e;--hi:#f59e0b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9aa6b6;--card:#151b24;--bd:#263040;--ac:#2dd4bf;--hi:#fbbf24}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+h1,h2,h3,.logo{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.w{max-width:1080px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 0}
+.logo{font-weight:700;font-size:1.4rem;text-decoration:none;color:var(--fg)}
+.logo b{color:var(--ac)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--fg);text-decoration:none;font-weight:500;padding:6px 12px;border-radius:8px;display:block}
+nav ul a:hover{background:var(--card)}
+nav ul a.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+main{padding:36px 0 56px}
+.hero{padding:48px 0 28px;max-width:760px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 16px}
+.hero p{color:var(--mut);font-size:1.15rem;margin:0 0 24px;max-width:620px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border:0;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:1rem;font-family:inherit}
+@media(prefers-color-scheme:dark){.btn{color:#04201d}}
+.btn:hover{filter:brightness(1.1)}
+h2{font-size:1.6rem;margin:44px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:6px;padding:22px}
+.card:nth-child(even){border-left-color:var(--hi)}
+.card small{color:var(--mut);font-weight:600}
+.card h3{margin:6px 0 8px;font-size:1.2rem;line-height:1.35}
+.card p{margin:0;color:var(--mut);font-size:.95rem}
+.topics{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+.topics li{border:1px solid var(--bd);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.92rem}
+.doc{max-width:760px;margin:auto}
+.doc h1{font-size:2.3rem;line-height:1.2;margin:10px 0 6px}
+.doc h2{font-size:1.35rem;margin:34px 0 8px}
+.doc .date{color:var(--mut);margin:0 0 24px}
+.doc li{margin-bottom:6px}
+.note{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--hi);padding:14px 18px;border-radius:6px}
+form{display:grid;gap:16px;margin-top:20px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+textarea{min-height:150px;resize:vertical}
+#status{font-weight:600;color:var(--ac);min-height:1.5em}
+footer{border-top:1px solid var(--bd);padding:28px 0;color:var(--mut);font-size:.92rem}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--mut);margin-right:16px}
+footer a:hover{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.doc h3{font-size:1.15rem;margin:24px 0 6px}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:18px 0}.meta{color:var(--mut);margin:0 0 20px}.card h3 a{color:inherit;text-decoration:none}.card h3 a:hover{color:var(--ac);text-decoration:underline}.shot{margin:18px 0}.shot img{max-width:100%;height:auto;border-radius:8px;display:block}.shot .ph{border:2px dashed var(--ac);border-radius:8px;padding:34px 16px;text-align:center;color:var(--mut);font-weight:600}.shot figcaption{color:var(--mut);font-size:.9rem;margin-top:6px;text-align:center}</style>
+</head>
+<body>
+<header>
+<div class="w">
+<nav aria-label="Main navigation">
+<a class="logo" href="index.html">Automa<b>Tuts</b></a>
+<ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article class="doc">
+<h1>Claude AI Explained: A Beginner's Guide to Every Major Feature</h1>
+<p class="meta">Published October 25, 2026 &middot; 10 min read</p>
+<p>Claude is more than a chat box. It has projects, a desktop assistant, a coding tool, a design tool and a long list of integrations, and most beginners only ever touch the first one.</p>
+<p>This guide walks through each part in the order that makes sense to learn them, so you can decide what is worth setting up first.</p>
+
+<h2>What is Claude?</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-interface.png" alt="The Claude chat interface" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Claude chat screen (web or app) showing the message box<br>Save as images/claude-interface.png</div><figcaption>The Claude chat interface</figcaption></figure>
+<p>Claude is an AI chatbot made by <strong>Anthropic</strong>. You can use it in your web browser, in the iPhone and Android apps, or in the desktop app for Mac and Windows.</p>
+<p>At its simplest it works like ChatGPT: you type a question and it answers. The real value comes from the extra tools built around the chat.</p>
+
+<h2>Claude Projects: stop repeating yourself</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-projects.png" alt="A Claude Project with uploaded reference files" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: A Project page with uploaded files and instructions<br>Save as images/claude-projects.png</div><figcaption>A Claude Project with uploaded reference files</figcaption></figure>
+<p>A <strong>Project</strong> is a workspace where you store background material once, so Claude uses it in every chat inside that project.</p>
+<p>Ishan gives a good example. He uploaded all the reel scripts he wrote over six months. Claude now knows his phrasing and writing habits, and it can draft new scripts in his style without being briefed again.</p>
+<ul>
+<li>Best for work you repeat, such as scripts, reports or customer replies</li>
+<li>Similar in idea to a custom GPT</li>
+<li>Saves you from pasting the same context into every conversation</li>
+</ul>
+
+<h2>Claude Cowork: an assistant for your computer</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-cowork.png" alt="Cowork in the Claude desktop app" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Cowork option inside the Claude desktop app<br>Save as images/claude-cowork.png</div><figcaption>Cowork in the Claude desktop app</figcaption></figure>
+<p><strong>Cowork</strong> appears inside the desktop app on Windows and Mac. It is available to paid subscribers only.</p>
+<p>Think of it as a helper that works on your laptop for you. It can:</p>
+<ul>
+<li>Reorganize files and folders</li>
+<li>Read through folders, collect data and turn it into a PDF</li>
+<li>Edit images and create PDFs</li>
+<li>Work on the web through Claude in Chrome</li>
+</ul>
+<p>When a regular chat sounds like a Cowork task, Claude may suggest moving it there.</p>
+
+<h2>Choosing a Claude model</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-models.png" alt="Choosing a model from the dropdown" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Model selector dropdown showing Opus, Sonnet, Haiku<br>Save as images/claude-models.png</div><figcaption>Choosing a model from the dropdown</figcaption></figure>
+<p>Anthropic offers several models, each suited to a different kind of job. Model versions change often, so check the current names in the app. The video was recorded when Opus was at version 4.7.</p>
+<ul>
+<li><strong>Claude Opus:</strong> the most capable model. Best for coding, deep reasoning and complex tasks, but it uses your usage allowance fastest.</li>
+<li><strong>Claude Sonnet:</strong> a good starting point for everyday writing, such as assignments, PDFs, video scripts and reel scripts.</li>
+<li><strong>Claude Haiku:</strong> suited to quick, simple tasks.</li>
+</ul>
+
+<h2>Claude Code: build apps by describing them</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-code.png" alt="Claude Code building an app" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Claude Code running (desktop app, VS Code or CLI)<br>Save as images/claude-code.png</div><figcaption>Claude Code building an app</figcaption></figure>
+<p><strong>Claude Code</strong> lets you ask Claude to build websites, apps and live dashboards. It is a popular way to "vibe code", which means describing what you want and letting the AI write the files.</p>
+<h3>Three ways to use it</h3>
+<ul>
+<li>Inside the <strong>Claude desktop app</strong></li>
+<li>As an <strong>extension in VS Code</strong>, where Claude creates and edits files while you talk to it</li>
+<li>Through the <strong>Claude Code CLI</strong>, a command-line tool that works on whatever folder you are in</li>
+</ul>
+<p>If you start describing an app in a normal chat, Claude may offer to hand the job to Claude Code.</p>
+
+<h2>Web search and Research</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/web-search-research.png" alt="The plus menu with Web search and Research" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Plus (+) menu showing Web search and Research<br>Save as images/web-search-research.png</div><figcaption>The plus menu with Web search and Research</figcaption></figure>
+<p>Click the <strong>plus (+)</strong> icon in the chat box to find two useful options.</p>
+<ul>
+<li><strong>Web search</strong> lets Claude look up current information online.</li>
+<li><strong>Research</strong> digs deep into a topic. It takes longer, but you get a well-sourced report at the end.</li>
+</ul>
+
+<h2>Use your voice for better prompts</h2>
+<p>Typing long prompts often makes you lose your train of thought, and that leads to weak answers. Ishan speaks his prompts instead, using a voice dictation tool called Wispr Flow.</p>
+<p>In his demo he rambled out a request for AI tools for solo content creators, and the tool turned it into a clean, well-structured prompt. Cleaner prompts mean fewer retries and less wasted usage.</p>
+
+<h2>Claude Design</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-design.png" alt="Claude Design with the export options" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Claude Design project, e.g. an Instagram carousel, with Export option<br>Save as images/claude-design.png</div><figcaption>Claude Design with the export options</figcaption></figure>
+<p><strong>Claude Design</strong> is a newer tool for creating visuals. You can make Instagram carousels, mobile app screens, presentations, logos and other interfaces.</p>
+<p>You upload references and files, Claude organizes them into a file structure, and it gives you the result in HTML. The helpful part is what you can do next:</p>
+<ul>
+<li>Export the design to <strong>Canva</strong> and edit it by hand</li>
+<li>Send it to <strong>Claude Code</strong> and start building a real app from it</li>
+</ul>
+
+<h2>Learning with Claude and Artifacts</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-artifacts.png" alt="An interactive artifact inside Claude" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: An artifact (e.g. interactive double-slit demo) inside a chat<br>Save as images/claude-artifacts.png</div><figcaption>An interactive artifact inside Claude</figcaption></figure>
+<p>Claude is a patient teacher. Ask it to explain something visually, for example the double-slit experiment in physics, and it can build an interactive demo instead of just writing text.</p>
+<p>These demos are called <strong>Artifacts</strong>. An artifact is something Claude builds by writing code behind the scenes, such as a small website, a live dashboard or a simple mobile game, all running right inside the chat.</p>
+
+<h2>Claude in Chrome</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-in-chrome.png" alt="Claude in Chrome handling a browser task" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Claude in Chrome side panel running a task, plus Teach Claude option<br>Save as images/claude-in-chrome.png</div><figcaption>Claude in Chrome handling a browser task</figcaption></figure>
+<p><strong>Claude in Chrome</strong> is a browser extension that lets Claude act as an agent in your browser. It can handle small, repetitive jobs like:</p>
+<ul>
+<li>Comparing products on Amazon</li>
+<li>Placing orders for you</li>
+<li>Scheduling LinkedIn posts</li>
+<li>Replying to people who comment on your social posts</li>
+</ul>
+<h3>Teach Claude</h3>
+<p>This feature lets Claude watch how you do a task in the browser and repeat it later. Ishan's example is invoicing: read the billing details in an email, open the invoicing software, enter the amount and create the invoice. Once Claude has seen the steps, it can run the same process for you.</p>
+
+<h2>Connectors: link Claude to your other apps</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-connectors.png" alt="The Connectors list" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Connectors list under the plus menu (e.g. Gmail connected)<br>Save as images/claude-connectors.png</div><figcaption>The Connectors list</figcaption></figure>
+<p><strong>Connectors</strong> let Claude work with apps you already use. You will find them under the plus icon in the chat.</p>
+<p>Ishan connected Gmail so Claude can summarize each morning's unread email, point out what needs attention and what can wait, and draft or send replies. Other examples from the video:</p>
+<ul>
+<li>Gamma for presentations</li>
+<li>HeyGen for AI avatar videos</li>
+<li>Higgsfield for AI video</li>
+</ul>
+
+<h2>Skills and plugins</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-skills.png" alt="Using a skill with a slash command" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Skills or Plugins page, or typing /skill-name in chat<br>Save as images/claude-skills.png</div><figcaption>Using a skill with a slash command</figcaption></figure>
+<p>A <strong>skill</strong> is a saved set of instructions, written as a Markdown (.md) file. It tells Claude what steps to follow, what input it needs and what output to give.</p>
+<p>Without skills, you would explain how to make an infographic from scratch every time. With one, you type the skill name, give your input and Claude does the rest.</p>
+<ul>
+<li>A group of related skills is called a <strong>plugin</strong>, for example a marketing plugin with skills for different marketing jobs.</li>
+<li>The <strong>skill creator</strong> skill helps you build new skills. It asks what the skill should do, what style you want and which steps to follow, then writes the file for you.</li>
+<li>You can also import skills made by other people by adding their .md file to your Claude app.</li>
+<li>To run a skill, type a forward slash followed by its name.</li>
+</ul>
+
+<h2>Scheduled tasks in Cowork</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/scheduled-task.png" alt="A scheduled task in Cowork" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: A scheduled task set up in Cowork (time, task description)<br>Save as images/scheduled-task.png</div><figcaption>A scheduled task in Cowork</figcaption></figure>
+<p>If you do the same job every day, turn it into a <strong>scheduled task</strong>. Ishan used to find viral AI tweets by hand, turn them into reel scripts and save them as a PDF.</p>
+<p>Now Cowork does this at 10:00 a.m. every day. It uses Claude in Chrome to find the seven most viral tweets on his feed, writes scripts in his style and saves a PDF to his desktop.</p>
+
+<h2>Claude Dispatch: control your laptop from your phone</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/claude-dispatch.png" alt="Dispatch on the phone app" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Dispatch on the phone app sending a task to the laptop<br>Save as images/claude-dispatch.png</div><figcaption>Dispatch on the phone app</figcaption></figure>
+<p>Dispatch connects your phone to Cowork on your computer, as long as the laptop is on. If you are away from home and need a file, you can ask for it from the Claude app.</p>
+<p>For instance, you could ask for the image of your signature on your desktop, or ask Claude to email it to someone. Cowork handles it on the laptop while you stay on your phone.</p>
+
+<h2>Moving from ChatGPT to Claude</h2>
+<p>If ChatGPT already knows a lot about you, you do not have to start from zero. The process in the video goes like this:</p>
+<ol>
+<li>Copy the memory-transfer prompt provided on the Claude website.</li>
+<li>Paste it into ChatGPT and let it list what it knows about you.</li>
+<li>In Claude, open <strong>Settings</strong>, then <strong>Account</strong>.</li>
+<li>Paste that information into the context field and save.</li>
+</ol>
+
+<h2>Developer platform and usage limits</h2>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/usage-limits.png" alt="The Usage page in Settings" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Settings, then Usage page showing usage bars<br>Save as images/usage-limits.png</div><figcaption>The Usage page in Settings</figcaption></figure>
+<p>The <strong>Claude Developer Platform</strong> is where you get an API key and build your own apps with Claude. API use is billed separately, so you need to add credit.</p>
+<p>Watch your <strong>usage limits</strong>, because they can run out quickly. Go to <strong>Settings</strong>, then <strong>Usage</strong> or <strong>Billing</strong> to see your current usage. It resets every few hours, and Claude Design has its own separate usage bar. If an urgent task needs more room, you can top up by paying extra.</p>
+
+<h2>Quick summary</h2>
+<ul>
+<li>Use <strong>Projects</strong> to keep context for repeated work.</li>
+<li>Pick <strong>Opus, Sonnet or Haiku</strong> to match the task.</li>
+<li>Try <strong>Cowork</strong>, <strong>Claude in Chrome</strong> and <strong>Dispatch</strong> to hand off computer tasks.</li>
+<li>Build apps with <strong>Claude Code</strong> and visuals with <strong>Claude Design</strong>.</li>
+<li>Save time with <strong>Connectors</strong>, <strong>Skills</strong> and <strong>scheduled tasks</strong>.</li>
+</ul>
+<p>Pick one or two of these and try them this week rather than everything at once.</p>
+<p>Stuck on a step, or want us to cover one of these features in more detail? Send us a message on the <a href="contact.html">contact page</a> or leave a comment on the <a href="https://www.youtube.com/watch?v=Nql-5Ph3xZs" target="_blank" rel="noopener noreferrer">original video</a>, and we will help.</p>
+<p class="note"><strong>Credit:</strong> This guide is based on the YouTube video by <strong>Ishan Sharma</strong>. Watch the original here: <a href="https://www.youtube.com/watch?v=Nql-5Ph3xZs" target="_blank" rel="noopener">Claude tutorial by Ishan Sharma</a>. All product names belong to their respective owners, and features or limits may have changed since the video was published.</p>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Claude AI Explained: A Beginner's Guide to Every Major Feature","description":"Learn what Claude can do: Projects, Cowork, Claude Code, Design, Artifacts, Connectors, Skills and more, explained step by step for beginners.","datePublished":"2026-10-25","mainEntityOfPage":"https://automatuts.site/claude-ai-beginners-guide.html","publisher":{"@type":"Organization","name":"AutomaTuts"}}</script>
+</main>
+<footer>
+<div class="w">
+<div>&copy; 2026 AutomaTuts.site. All rights reserved.</div>
+<div><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div>
+</div>
+</footer>
+
+</body>
+</html>
