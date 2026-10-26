@@ -100,7 +100,7 @@ footer a:hover{color:var(--ac)}
 <li>A Google account</li>
 <li>A Google Sheet with a header row. Name the sheet tab <strong>New Projects</strong> and add these five columns: <strong>Client Name, Project Name, Email, Start Date, Project Description</strong></li>
 </ul>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/google-sheet-columns.png" alt="The Google Sheet with the five columns" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: Your Google Sheet with the five column headers<br>Save as images/google-sheet-columns.png</div><figcaption>The Google Sheet with the five columns</figcaption></figure>
+<figure class="shot"><img src="images/google-sheet-columns.png" alt="The Google Sheet with the five columns" width="1200" height="675" loading="lazy"><figcaption>The Google Sheet with the five columns</figcaption></figure>
 
 <h2>Step 1: Create your n8n account</h2>
 <ol>
@@ -109,7 +109,7 @@ footer a:hover{color:var(--ac)}
 <li>Answer a few questions to create your account. You will land in your n8n dashboard.</li>
 </ol>
 <p>New accounts get a <strong>14-day free trial</strong>, which is enough time to see whether n8n suits your business.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/n8n-dashboard.png" alt="The n8n dashboard" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The n8n dashboard after signing in<br>Save as images/n8n-dashboard.png</div><figcaption>The n8n dashboard</figcaption></figure>
+<figure class="shot"><img src="images/n8n-dashboard.png" alt="The n8n dashboard" width="1200" height="675" loading="lazy"><figcaption>The n8n dashboard</figcaption></figure>
 
 <h2>Step 2: Create a new workflow</h2>
 <p>Click the option to create a new workflow. You will see an empty canvas. This is where you add and connect your nodes.</p>
@@ -121,7 +121,7 @@ footer a:hover{color:var(--ac)}
 <li><strong>Form title:</strong> New Projects</li>
 <li><strong>Form description:</strong> Let's start a new project together</li>
 </ul>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/form-trigger-settings.png" alt="Form title and description in the trigger node" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The On form submission node with title and description filled in<br>Save as images/form-trigger-settings.png</div><figcaption>Form title and description in the trigger node</figcaption></figure>
+<figure class="shot"><img src="images/form-trigger-settings.png" alt="Form title and description in the trigger node" width="1200" height="675" loading="lazy"><figcaption>Form title and description in the trigger node</figcaption></figure>
 
 <h3>Add the form fields</h3>
 <p>In n8n, form fields are called <strong>elements</strong>. Scroll down and add them one at a time. Each element lets you pick an element type, such as text, email, date, dropdown or file.</p>
@@ -133,7 +133,7 @@ footer a:hover{color:var(--ac)}
 <li><strong>Project Description:</strong> text type, placeholder "Please describe your project", marked as required</li>
 </ul>
 <p>Placeholders are optional. Leave them empty where you do not need them.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/form-elements.png" alt="The five form elements in n8n" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The list of form elements (client name, project name, email, start date, description)<br>Save as images/form-elements.png</div><figcaption>The five form elements in n8n</figcaption></figure>
+<figure class="shot"><img src="images/form-elements.png" alt="The five form elements in n8n" width="1200" height="675" loading="lazy"><figcaption>The five form elements in n8n</figcaption></figure>
 
 <p>Leave the <strong>Respond when form is submitted</strong> setting as it is.</p>
 
@@ -144,10 +144,10 @@ footer a:hover{color:var(--ac)}
 <li>Click <strong>Submit</strong>. You will see a message that your response has been recorded.</li>
 </ol>
 <p>Back in n8n, the node shows a green tick and the submitted data appears in the output panel. You can view it as a <strong>table</strong>, a <strong>schema</strong> or <strong>JSON</strong>.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/test-form.png" alt="Filling in the test form" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The test form filled in with sample data<br>Save as images/test-form.png</div><figcaption>Filling in the test form</figcaption></figure>
+<figure class="shot"><img src="images/test-form.png" alt="Filling in the test form" width="1200" height="675" loading="lazy"><figcaption>Filling in the test form</figcaption></figure>
 
 <p>Click <strong>Pin</strong> on the output. Pinned data is reused in later test runs, so you do not have to fill in the form again every time.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/node-output-pinned.png" alt="Pinned test data in the output panel" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The node output with data pinned (table view)<br>Save as images/node-output-pinned.png</div><figcaption>Pinned test data in the output panel</figcaption></figure>
+<figure class="shot"><img src="images/node-output-pinned.png" alt="Pinned test data in the output panel" width="1200" height="675" loading="lazy"><figcaption>Pinned test data in the output panel</figcaption></figure>
 
 <h2>Step 5: Send the form data to Google Sheets</h2>
 <p>Go back to the canvas and click the <strong>plus (+)</strong> icon next to your trigger. Search for <strong>Google Sheets</strong> and open the node. From the list of actions, choose <strong>Append row in sheet</strong>. This adds a new row to your sheet each time the form is submitted.</p>
@@ -157,7 +157,7 @@ footer a:hover{color:var(--ac)}
 <li>Click <strong>Sign in with Google</strong> and approve access.</li>
 <li>Close the credential window and select your Google Sheets account.</li>
 </ol>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/google-sheets-credential.png" alt="Connecting Google Sheets to n8n" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Create new credential window with Sign in with Google<br>Save as images/google-sheets-credential.png</div><figcaption>Connecting Google Sheets to n8n</figcaption></figure>
+<figure class="shot"><img src="images/google-sheets-credential.png" alt="Connecting Google Sheets to n8n" width="1200" height="675" loading="lazy"><figcaption>Connecting Google Sheets to n8n</figcaption></figure>
 
 <h3>Choose the document and sheet</h3>
 <ul>
@@ -176,11 +176,11 @@ footer a:hover{color:var(--ac)}
 <li>Start Date &rarr; Start Date</li>
 <li>Project Description &rarr; Project Description</li>
 </ul>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/column-mapping.png" alt="Mapping form fields to sheet columns" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheets node with all five columns mapped by dragging fields<br>Save as images/column-mapping.png</div><figcaption>Mapping form fields to sheet columns</figcaption></figure>
+<figure class="shot"><img src="images/column-mapping.png" alt="Mapping form fields to sheet columns" width="1200" height="675" loading="lazy"><figcaption>Mapping form fields to sheet columns</figcaption></figure>
 
 <h2>Step 6: Check that it works</h2>
 <p>Click <strong>Execute step</strong>. The node should finish with a green tick. Then open your Google Sheet. The test submission should now appear as a new row.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/sheet-new-row.png" alt="The new row in Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheet showing the new row added by n8n<br>Save as images/sheet-new-row.png</div><figcaption>The new row in Google Sheets</figcaption></figure>
+<figure class="shot"><img src="images/sheet-new-row.png" alt="The new row in Google Sheets" width="1200" height="675" loading="lazy"><figcaption>The new row in Google Sheets</figcaption></figure>
 
 <p>Go back to the canvas and you will see the full flow: the form trigger on the left, connected to the Google Sheets node. Each time someone submits the form, a new row is added.</p>
 
@@ -191,7 +191,7 @@ footer a:hover{color:var(--ac)}
 <li><strong>Gmail:</strong> add the Gmail node and choose <strong>Send a message</strong> to email the person who filled in the form. Use the client email from the form as the recipient, then write the subject and the body of your confirmation or welcome email.</li>
 </ul>
 <p>Each new app needs its own connection, just like you set up for Google Sheets.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/canvas-extra-nodes.png" alt="Adding Slack or Gmail after Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The canvas with extra Slack or Gmail nodes added<br>Save as images/canvas-extra-nodes.png</div><figcaption>Adding Slack or Gmail after Google Sheets</figcaption></figure>
+<figure class="shot"><img src="images/canvas-extra-nodes.png" alt="Adding Slack or Gmail after Google Sheets" width="1200" height="675" loading="lazy"><figcaption>Adding Slack or Gmail after Google Sheets</figcaption></figure>
 
 <p>On the canvas you can zoom in and out, or scroll with your mouse or touchpad.</p>
 
@@ -203,7 +203,6 @@ footer a:hover{color:var(--ac)}
 <li>Copy the link.</li>
 </ol>
 <p>That production URL is your live form. Put it on your website or share it anywhere you want to collect new project requests.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/production-url.png" alt="The Production URL of your form" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The form trigger node showing the Production URL<br>Save as images/production-url.png</div><figcaption>The Production URL of your form</figcaption></figure>
 
 <h2>Quick summary</h2>
 <ul>
