@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Automate LinkedIn Posts with n8n and AI: Step-by-Step Workflow – AutomaTuts</title>
+<meta name="description" content="Build an n8n workflow that turns any blog into a LinkedIn post with an AI image, saves it to Google Sheets, and publishes it after your approval.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://automatuts.site/n8n-linkedin-post-automation-ai.html">
+<meta property="og:title" content="Automate LinkedIn Posts with n8n and AI: Step-by-Step Workflow">
+<meta property="og:description" content="Build an n8n workflow that turns any blog into a LinkedIn post with an AI image, saves it to Google Sheets, and publishes it after your approval.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://automatuts.site/n8n-linkedin-post-automation-ai.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{--bg:#f6f7f9;--fg:#101828;--mut:#5b6678;--card:#fff;--bd:#dde1e8;--ac:#0f766e;--hi:#f59e0b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9aa6b6;--card:#151b24;--bd:#263040;--ac:#2dd4bf;--hi:#fbbf24}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+h1,h2,h3,.logo{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.w{max-width:1080px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 0}
+.logo{font-weight:700;font-size:1.4rem;text-decoration:none;color:var(--fg)}
+.logo b{color:var(--ac)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--fg);text-decoration:none;font-weight:500;padding:6px 12px;border-radius:8px;display:block}
+nav ul a:hover{background:var(--card)}
+nav ul a.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+main{padding:36px 0 56px}
+.hero{padding:48px 0 28px;max-width:760px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 16px}
+.hero p{color:var(--mut);font-size:1.15rem;margin:0 0 24px;max-width:620px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border:0;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:1rem;font-family:inherit}
+@media(prefers-color-scheme:dark){.btn{color:#04201d}}
+.btn:hover{filter:brightness(1.1)}
+h2{font-size:1.6rem;margin:44px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:6px;padding:22px}
+.card:nth-child(even){border-left-color:var(--hi)}
+.card small{color:var(--mut);font-weight:600}
+.card h3{margin:6px 0 8px;font-size:1.2rem;line-height:1.35}
+.card p{margin:0;color:var(--mut);font-size:.95rem}
+.topics{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+.topics li{border:1px solid var(--bd);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.92rem}
+.doc{max-width:760px;margin:auto}
+.doc h1{font-size:2.3rem;line-height:1.2;margin:10px 0 6px}
+.doc h2{font-size:1.35rem;margin:34px 0 8px}
+.doc .date{color:var(--mut);margin:0 0 24px}
+.doc li{margin-bottom:6px}
+.note{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--hi);padding:14px 18px;border-radius:6px}
+form{display:grid;gap:16px;margin-top:20px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+textarea{min-height:150px;resize:vertical}
+#status{font-weight:600;color:var(--ac);min-height:1.5em}
+footer{border-top:1px solid var(--bd);padding:28px 0;color:var(--mut);font-size:.92rem}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--mut);margin-right:16px}
+footer a:hover{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.doc h3{font-size:1.15rem;margin:24px 0 6px}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:18px 0}.meta{color:var(--mut);margin:0 0 20px}.card h3 a{color:inherit;text-decoration:none}.card h3 a:hover{color:var(--ac);text-decoration:underline}.shot{margin:18px 0}.shot img{max-width:100%;height:auto;border-radius:8px;display:block}.shot .ph{border:2px dashed var(--ac);border-radius:8px;padding:34px 16px;text-align:center;color:var(--mut);font-weight:600}.shot figcaption{color:var(--mut);font-size:.9rem;margin-top:6px;text-align:center}</style>
+</head>
+<body>
+<header>
+<div class="w">
+<nav aria-label="Main navigation">
+<a class="logo" href="index.html">Automa<b>Tuts</b></a>
+<ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article class="doc">
+<h1>Automate LinkedIn Posts with n8n and AI: Step-by-Step Workflow</h1>
+<p class="meta">Published October 27, 2026 &middot; 9 min read</p>
+<p>Writing a good LinkedIn post takes time, and it is hard to stay consistent. This guide shows how to build an <strong>n8n</strong> workflow that reads a blog article, writes a LinkedIn post about it in your voice, creates a matching image and publishes it once you approve.</p>
+<p>The AI does the drafting. You stay in control, because nothing goes live until you say so.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/linkedin-ai-post-example.png" alt="An AI-generated LinkedIn post made with this workflow" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: An example of the final AI-written LinkedIn post<br>Save as images/linkedin-ai-post-example.png</div><figcaption>An AI-generated LinkedIn post made with this workflow</figcaption></figure>
+
+<h2>How the system works</h2>
+<p>The setup is split into two separate workflows.</p>
+<ul>
+<li><strong>Flow 1 (create):</strong> takes a blog URL, summarizes it, writes the post, generates an image and saves everything to Google Sheets.</li>
+<li><strong>Flow 2 (publish):</strong> reads the sheet and posts to LinkedIn only the rows you have confirmed.</li>
+</ul>
+<p>The Google Sheet sits in the middle as your review step. You can read and edit each post before it goes out.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/flow1-overview.png" alt="Flow 1: from blog URL to Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The full canvas of Flow 1 in n8n<br>Save as images/flow1-overview.png</div><figcaption>Flow 1: from blog URL to Google Sheets</figcaption></figure>
+
+<h2>What you need</h2>
+<ul>
+<li>An <strong>n8n</strong> account</li>
+<li>A <strong>Firecrawl</strong> account (reads web pages)</li>
+<li>An <strong>OpenAI</strong> API key (summary and image generation)</li>
+<li>An <strong>Anthropic</strong> API key (writes the post)</li>
+<li>A <strong>Perplexity</strong> API key (optional web search for the first agent)</li>
+<li>A <strong>Google</strong> account for Google Sheets and Google Drive</li>
+<li>A <strong>LinkedIn</strong> API access token</li>
+</ul>
+
+<h2>Flow 1, Step 1: Add a trigger</h2>
+<p>The creator in the video uses a <strong>form</strong> as the trigger, but you can use anything: Telegram, Slack or any other trigger node.</p>
+<p>The input is the <strong>link to a blog article</strong>. This is the information the AI will turn into a post. In the demo it was a blog about OpenAI's Agent Builder.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/form-trigger-blog-url.png" alt="The trigger that takes a blog URL" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The form trigger with the blog URL field<br>Save as images/form-trigger-blog-url.png</div><figcaption>The trigger that takes a blog URL</figcaption></figure>
+
+<p>One tip for testing: if you pinned test data on the trigger, <strong>unpin</strong> it before running the workflow with a new URL. Otherwise n8n keeps using the old data.</p>
+
+<h2>Flow 1, Step 2: Read the blog with Firecrawl</h2>
+<p>Add a <strong>Firecrawl</strong> node. It visits the blog page and returns all of its content in <strong>Markdown</strong> format, which is clean text that AI models handle well.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/firecrawl-node.png" alt="Firecrawl turning the blog into Markdown" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Firecrawl node scraping the blog URL<br>Save as images/firecrawl-node.png</div><figcaption>Firecrawl turning the blog into Markdown</figcaption></figure>
+
+<h2>Flow 1, Step 3: Summarize with the first AI agent</h2>
+<p>Add an <strong>AI Agent</strong> node. It receives the Markdown of the blog as the topic and has one tool connected: <strong>Perplexity</strong>, which lets it search the internet if it needs more information.</p>
+<p>The prompt gives the agent two steps:</p>
+<ol>
+<li>If you need more information, use the Perplexity tool.</li>
+<li>Summarize the result, and create an <strong>image prompt</strong> that matches the subject.</li>
+</ol>
+<p>The outputs are a <strong>summary</strong> and an <strong>image prompt</strong>. You will use both in the next steps.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/ai-agent-summary-prompt.png" alt="Agent 1: summary and image prompt" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The first AI agent with its prompt and the Perplexity tool<br>Save as images/ai-agent-summary-prompt.png</div><figcaption>Agent 1: summary and image prompt</figcaption></figure>
+
+<h3>Why use two different models?</h3>
+<p>This agent only summarizes, so the creator picked the cheapest option, <strong>OpenAI GPT-5 nano</strong>. Writing the final post is a different job, so it goes to a second model. Splitting the work keeps costs low and quality high. Model names change often, so check what is available when you build this.</p>
+
+<h2>Flow 1, Step 4: Write the post with the second AI agent</h2>
+<p>The second <strong>AI Agent</strong> node uses <strong>Anthropic Claude Sonnet 4.5</strong>, which the creator finds better at generating text and posts.</p>
+<p>This prompt is the most important part of the whole workflow. It is where you make the posts sound like you. Include:</p>
+<ul>
+<li><strong>Your background:</strong> your experience and what you have worked on</li>
+<li><strong>Your target audience:</strong> your ideal customer profile (ICP), such as manufacturing executives</li>
+<li><strong>The topic:</strong> the summary from the first agent</li>
+<li><strong>Style rules:</strong> how the post should sound and what it should achieve</li>
+</ul>
+<p>Ask the agent to return <strong>structured JSON</strong> that contains the final post text, so the next nodes can pick it up easily. A good tip is to make the prompt use variables, so you can swap in a different experience or audience without rewriting everything.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/ai-agent-post-prompt.png" alt="Agent 2: the prompt that writes your post" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The second AI agent prompt with background, audience and style rules<br>Save as images/ai-agent-post-prompt.png</div><figcaption>Agent 2: the prompt that writes your post</figcaption></figure>
+
+<p>The example post in the video follows a clear pattern: a hook that names a pain point, a short explanation of the gap, and a closing question that starts a discussion with readers.</p>
+
+<h2>Flow 1, Step 5: Generate a branded image</h2>
+<p>Next, create an image with <strong>OpenAI image generation</strong> (the gpt-image-1 model). Feed it the image prompt from the first agent.</p>
+<p>Here is the trick: also give it a <strong>reference image</strong> that represents your brand. The model uses it as a base and produces an image in a similar style. Without a reference, you tend to get a plain, obviously AI-looking picture.</p>
+<p>The colors may still differ a little from your reference, but the overall look stays close to your brand.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/brand-reference-image.png" alt="The brand reference image" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The brand reference image used as the input<br>Save as images/brand-reference-image.png</div><figcaption>The brand reference image</figcaption></figure>
+
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/generated-image.png" alt="The generated post image" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The image generated by OpenAI for the post<br>Save as images/generated-image.png</div><figcaption>The generated post image</figcaption></figure>
+
+<h2>Flow 1, Step 6: Save the image to Google Drive</h2>
+<p>Upload the generated image to <strong>Google Drive</strong>. Before that, add a <strong>Code node</strong> with a few lines of JavaScript that create a <strong>random ID</strong> for the file name. This way, each new image gets its own name and the previous one is never overwritten.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/drive-upload-code-node.png" alt="Random file ID and Google Drive upload" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Code node creating a random ID and the Google Drive upload node<br>Save as images/drive-upload-code-node.png</div><figcaption>Random file ID and Google Drive upload</figcaption></figure>
+
+<h2>Flow 1, Step 7: Save everything to Google Sheets</h2>
+<p>Add a <strong>Google Sheets</strong> node and choose <strong>Append row</strong>. Your sheet needs five columns:</p>
+<ul>
+<li><strong>Post text:</strong> the post written by the AI</li>
+<li><strong>Image ID:</strong> the Google Drive ID of the image (needed later to download it again)</li>
+<li><strong>Image URL:</strong> a link to preview the image</li>
+<li><strong>Published:</strong> set to <strong>no</strong></li>
+<li><strong>Confirmation:</strong> set to <strong>no</strong>, because you have not approved it yet</li>
+</ul>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/sheets-append-row.png" alt="Saving the post to Google Sheets" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheets Append row node with the five columns mapped<br>Save as images/sheets-append-row.png</div><figcaption>Saving the post to Google Sheets</figcaption></figure>
+
+<p>Run the workflow and a new row appears in your sheet.</p>
+
+<h2>Review and approve your post</h2>
+<p>Open the sheet and read the post. You can edit the text however you like. Check that nothing in it goes against your brand or your message.</p>
+<p>When you are happy, change the <strong>Confirmation</strong> column to <strong>yes</strong>. That is your approval.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/sheet-result.png" alt="The row waiting for your approval" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheet row with post text, image ID, image URL, published and confirmation<br>Save as images/sheet-result.png</div><figcaption>The row waiting for your approval</figcaption></figure>
+
+<h2>Flow 2: Publish to LinkedIn</h2>
+<p>The second workflow takes approved rows and posts them. Here is how it is built.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/flow2-overview.png" alt="Flow 2: publishing to LinkedIn" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The full canvas of Flow 2 in n8n<br>Save as images/flow2-overview.png</div><figcaption>Flow 2: publishing to LinkedIn</figcaption></figure>
+
+<h3>Step 1: Get the rows</h3>
+<p>Use a <strong>Google Sheets</strong> node with <strong>Get rows</strong> to read all rows from your sheet.</p>
+<h3>Step 2: Filter with an IF node</h3>
+<p>Add an <strong>IF</strong> node that checks two columns. A row goes to the <strong>true</strong> branch only when <strong>Confirmation is yes</strong> and <strong>Published is no</strong>.</p>
+<p>Any other row goes to the <strong>false</strong> branch and nothing is posted. This keeps unapproved and already-published posts safe.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/if-node.png" alt="The IF node that checks for approval" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The IF node checking confirmation and published<br>Save as images/if-node.png</div><figcaption>The IF node that checks for approval</figcaption></figure>
+
+<h3>Step 3: Publish with the LinkedIn API</h3>
+<p>The creator notes that the built-in LinkedIn node in n8n had a bug and could only post to an organization page. So the workflow uses the <strong>LinkedIn API</strong> directly, with an access token for your own account. How to get that token was covered in his previous video.</p>
+<p>The LinkedIn-related nodes run in this order:</p>
+<ol>
+<li><strong>Get user info:</strong> returns your LinkedIn ID</li>
+<li><strong>Initialize upload:</strong> prepares LinkedIn to receive an image</li>
+<li><strong>Download file:</strong> gets the image back from Google Drive using the image ID saved in the sheet</li>
+<li><strong>Upload image:</strong> sends the image to LinkedIn</li>
+<li><strong>Create post:</strong> publishes the post text with the image</li>
+</ol>
+<h3>Step 4: Mark the row as published</h3>
+<p>The last node updates the row and sets <strong>Published</strong> to <strong>yes</strong>. This stops the same post from being published twice.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/published-linkedin-post.png" alt="The finished post on LinkedIn" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The published post on LinkedIn<br>Save as images/published-linkedin-post.png</div><figcaption>The finished post on LinkedIn</figcaption></figure>
+
+<h2>Quick summary</h2>
+<ul>
+<li>Flow 1 reads a blog with <strong>Firecrawl</strong>, summarizes it, writes a post with a second AI model and creates a branded image.</li>
+<li>Everything is saved to <strong>Google Sheets</strong> and <strong>Google Drive</strong> so you can review it.</li>
+<li>You approve a post by setting <strong>Confirmation</strong> to yes.</li>
+<li>Flow 2 checks approved rows and publishes them with the <strong>LinkedIn API</strong>, then marks them as published.</li>
+</ul>
+<p>Always read each post before approving it. The AI gives you a strong first draft, but the final say should be yours.</p>
+<p>Stuck on a step, such as the LinkedIn token or the IF node? Send us a message on the <a href="contact.html">contact page</a> or leave a comment on the <a href="https://www.youtube.com/watch?v=sdqdqVw_YxY" target="_blank" rel="noopener">original video</a>, and we will help you out.</p>
+<p class="note"><strong>Credit:</strong> This guide is based on the YouTube video by <strong>OptimAIer | AI For Ecom</strong>. Watch the original here: <a href="https://www.youtube.com/watch?v=sdqdqVw_YxY" target="_blank" rel="noopener">LinkedIn post automation with n8n by OptimAIer | AI For Ecom</a>. All product names belong to their respective owners, and features, model names or menu names may have changed since the video was published.</p>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Automate LinkedIn Posts with n8n and AI: Step-by-Step Workflow","description":"Build an n8n workflow that turns any blog into a LinkedIn post with an AI image, saves it to Google Sheets, and publishes it after your approval.","datePublished":"2026-10-27","mainEntityOfPage":"https://automatuts.site/n8n-linkedin-post-automation-ai.html","publisher":{"@type":"Organization","name":"AutomaTuts"}}</script>
+</main>
+<footer>
+<div class="w">
+<div>&copy; 2026 AutomaTuts.site. All rights reserved.</div>
+<div><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div>
+</div>
+</footer>
+
+</body>
+</html>
