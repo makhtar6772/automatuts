@@ -85,7 +85,7 @@ footer a:hover{color:var(--ac)}
 <p class="meta">Published October 28, 2026 &middot; 10 min read</p>
 <p>Posting the same video to Instagram, YouTube, TikTok, Facebook and X by hand takes a lot of time. Every platform also likes a different style of caption.</p>
 <p>In this guide you will build an <strong>n8n</strong> workflow that picks your next unpublished video from a Google Sheet, writes a custom caption for each platform with AI, and posts everywhere through a single API. It needs no coding, only drag and drop.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/social-publish-workflow.png" alt="The complete auto-publish workflow" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The full finished workflow on the n8n canvas<br>Save as images/social-publish-workflow.png</div><figcaption>The complete auto-publish workflow</figcaption></figure>
+<figure class="shot"><img src="images/social-publish-workflow.png" alt="The complete auto-publish workflow" width="1200" height="675" loading="lazy"><figcaption>The complete auto-publish workflow</figcaption></figure>
 
 <h2>How the workflow works</h2>
 <ol>
@@ -110,7 +110,7 @@ footer a:hover{color:var(--ac)}
 <h2>Step 1: Prepare your Google Sheet</h2>
 <p>The creator shares a Google Sheet template in the video description. Open it and click <strong>File</strong>, then <strong>Make a copy</strong>, so the sheet lives in your own account.</p>
 <p>The sheet has a tab called <strong>Topics</strong>. Each row holds a video you want to publish, with details such as the topic, the video URL, a status and a posted flag.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/topics-sheet.png" alt="The Topics sheet with videos waiting to be posted" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Topics sheet with topic, video URL, status and posted columns<br>Save as images/topics-sheet.png</div><figcaption>The Topics sheet with videos waiting to be posted</figcaption></figure>
+<figure class="shot"><img src="images/topics-sheet.png" alt="The Topics sheet with videos waiting to be posted" width="1200" height="675" loading="lazy"><figcaption>The Topics sheet with videos waiting to be posted</figcaption></figure>
 
 <h2>Step 2: Create the workflow and add a schedule trigger</h2>
 <ol>
@@ -161,7 +161,7 @@ footer a:hover{color:var(--ac)}
 </ul>
 <p>If you do not like a rule, delete it or write your own. The end of the prompt tells the AI how to format its answer so the next nodes can use it.</p>
 <p>Scroll down and turn on <strong>Output Content as JSON</strong>. Click <strong>Execute step</strong> and open the <strong>Schema</strong> view to see one caption per platform. Rename the node to <strong>Captions agent</strong>.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/captions-agent-output.png" alt="One custom caption for every platform" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Captions agent output in schema view, showing a caption for each platform<br>Save as images/captions-agent-output.png</div><figcaption>One custom caption for every platform</figcaption></figure>
+<figure class="shot"><img src="images/captions-agent-output.png" alt="One custom caption for every platform" width="1200" height="675" loading="lazy"><figcaption>One custom caption for every platform</figcaption></figure>
 
 <h2>Step 5: Connect Blotato</h2>
 <p>Blotato is the service that publishes to your social platforms. Sign up for an account, then open <strong>Settings</strong>.</p>
@@ -198,7 +198,7 @@ footer a:hover{color:var(--ac)}
 </ol>
 <p>This part is a little tricky. The caption text is not valid JSON as it is, because line breaks and quotes can break it. The creator solves this with a short snippet from the template document. Paste it after the caption value so the text is cleaned up.</p>
 <p>Click <strong>Execute step</strong>. A green checkmark means the post was sent. Rename the node.</p>
-<figure class="shot"><!-- REPLACE the box below with: <img src="images/post-to-instagram-node.png" alt="The Instagram posting node" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Post to Instagram HTTP Request node with account ID, caption and media URL filled in<br>Save as images/post-to-instagram-node.png</div><figcaption>The Instagram posting node</figcaption></figure>
+<figure class="shot"><img src="images/post-to-instagram-node.png" alt="The Instagram posting node" width="1200" height="675" loading="lazy"><figcaption>The Instagram posting node</figcaption></figure>
 
 <h2>Step 8: Post to YouTube and other platforms</h2>
 <p>Every other platform works the same way. For YouTube:</p>
