@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auto-Post Videos to Every Social Platform with n8n and AI Captions – AutomaTuts</title>
+<meta name="description" content="Build an n8n workflow that picks a video from Google Sheets, writes a custom caption for each platform and posts everywhere through one API.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://automatuts.site/n8n-auto-post-social-media-blotato.html">
+<meta property="og:title" content="Auto-Post Videos to Every Social Platform with n8n and AI Captions">
+<meta property="og:description" content="Build an n8n workflow that picks a video from Google Sheets, writes a custom caption for each platform and posts everywhere through one API.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://automatuts.site/n8n-auto-post-social-media-blotato.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{--bg:#f6f7f9;--fg:#101828;--mut:#5b6678;--card:#fff;--bd:#dde1e8;--ac:#0f766e;--hi:#f59e0b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9aa6b6;--card:#151b24;--bd:#263040;--ac:#2dd4bf;--hi:#fbbf24}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+h1,h2,h3,.logo{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.w{max-width:1080px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 0}
+.logo{font-weight:700;font-size:1.4rem;text-decoration:none;color:var(--fg)}
+.logo b{color:var(--ac)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--fg);text-decoration:none;font-weight:500;padding:6px 12px;border-radius:8px;display:block}
+nav ul a:hover{background:var(--card)}
+nav ul a.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+main{padding:36px 0 56px}
+.hero{padding:48px 0 28px;max-width:760px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 16px}
+.hero p{color:var(--mut);font-size:1.15rem;margin:0 0 24px;max-width:620px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border:0;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:1rem;font-family:inherit}
+@media(prefers-color-scheme:dark){.btn{color:#04201d}}
+.btn:hover{filter:brightness(1.1)}
+h2{font-size:1.6rem;margin:44px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:6px;padding:22px}
+.card:nth-child(even){border-left-color:var(--hi)}
+.card small{color:var(--mut);font-weight:600}
+.card h3{margin:6px 0 8px;font-size:1.2rem;line-height:1.35}
+.card p{margin:0;color:var(--mut);font-size:.95rem}
+.topics{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+.topics li{border:1px solid var(--bd);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.92rem}
+.doc{max-width:760px;margin:auto}
+.doc h1{font-size:2.3rem;line-height:1.2;margin:10px 0 6px}
+.doc h2{font-size:1.35rem;margin:34px 0 8px}
+.doc .date{color:var(--mut);margin:0 0 24px}
+.doc li{margin-bottom:6px}
+.note{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--hi);padding:14px 18px;border-radius:6px}
+form{display:grid;gap:16px;margin-top:20px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+textarea{min-height:150px;resize:vertical}
+#status{font-weight:600;color:var(--ac);min-height:1.5em}
+footer{border-top:1px solid var(--bd);padding:28px 0;color:var(--mut);font-size:.92rem}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--mut);margin-right:16px}
+footer a:hover{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.doc h3{font-size:1.15rem;margin:24px 0 6px}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:18px 0}.meta{color:var(--mut);margin:0 0 20px}.card h3 a{color:inherit;text-decoration:none}.card h3 a:hover{color:var(--ac);text-decoration:underline}.shot{margin:18px 0}.shot img{max-width:100%;height:auto;border-radius:8px;display:block}.shot .ph{border:2px dashed var(--ac);border-radius:8px;padding:34px 16px;text-align:center;color:var(--mut);font-weight:600}.shot figcaption{color:var(--mut);font-size:.9rem;margin-top:6px;text-align:center}</style>
+</head>
+<body>
+<header>
+<div class="w">
+<nav aria-label="Main navigation">
+<a class="logo" href="index.html">Automa<b>Tuts</b></a>
+<ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article class="doc">
+<h1>Auto-Post Videos to Every Social Platform with n8n and AI Captions</h1>
+<p class="meta">Published October 28, 2026 &middot; 10 min read</p>
+<p>Posting the same video to Instagram, YouTube, TikTok, Facebook and X by hand takes a lot of time. Every platform also likes a different style of caption.</p>
+<p>In this guide you will build an <strong>n8n</strong> workflow that picks your next unpublished video from a Google Sheet, writes a custom caption for each platform with AI, and posts everywhere through a single API. It needs no coding, only drag and drop.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/social-publish-workflow.png" alt="The complete auto-publish workflow" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The full finished workflow on the n8n canvas<br>Save as images/social-publish-workflow.png</div><figcaption>The complete auto-publish workflow</figcaption></figure>
+
+<h2>How the workflow works</h2>
+<ol>
+<li>A <strong>schedule trigger</strong> starts the workflow (for example, once a day).</li>
+<li>It reads the <strong>next unpublished video</strong> from a Google Sheet.</li>
+<li>An <strong>AI captions agent</strong> writes a caption for every platform.</li>
+<li>The video is uploaded to a publishing service, then posted to each platform.</li>
+<li>The sheet is updated so that video is marked as <strong>posted</strong>.</li>
+</ol>
+<p>The next time the workflow runs, it picks the next row that has not been posted yet.</p>
+
+<h2>What you need</h2>
+<ul>
+<li>An <strong>n8n</strong> account (a free trial is available)</li>
+<li>A <strong>Google</strong> account for Google Sheets</li>
+<li>An <strong>OpenAI</strong> API key, with a few dollars of credit added</li>
+<li>A <strong>Blotato</strong> account to publish to social platforms with one API</li>
+<li>Your social accounts, such as Instagram and YouTube</li>
+</ul>
+<p>The creator uses Blotato instead of connecting each platform's own API. It saves a lot of setup steps and works the same way for every platform.</p>
+
+<h2>Step 1: Prepare your Google Sheet</h2>
+<p>The creator shares a Google Sheet template in the video description. Open it and click <strong>File</strong>, then <strong>Make a copy</strong>, so the sheet lives in your own account.</p>
+<p>The sheet has a tab called <strong>Topics</strong>. Each row holds a video you want to publish, with details such as the topic, the video URL, a status and a posted flag.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/topics-sheet.png" alt="The Topics sheet with videos waiting to be posted" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Topics sheet with topic, video URL, status and posted columns<br>Save as images/topics-sheet.png</div><figcaption>The Topics sheet with videos waiting to be posted</figcaption></figure>
+
+<h2>Step 2: Create the workflow and add a schedule trigger</h2>
+<ol>
+<li>Sign up for n8n and open your dashboard.</li>
+<li>Click <strong>Create Workflow</strong>.</li>
+<li>Add a trigger and choose <strong>On schedule</strong>.</li>
+<li>Set <strong>Trigger Interval</strong> to <strong>Days</strong> and <strong>Days Between Triggers</strong> to <strong>1</strong>.</li>
+</ol>
+<p>The workflow now runs once a day. You can pick another schedule if you like, such as every hour.</p>
+
+<h2>Step 3: Get the next video from Google Sheets</h2>
+<p>Click the plus icon, search for <strong>Google Sheets</strong> and choose the <strong>Get Row(s)</strong> action.</p>
+<h3>Connect your Google account</h3>
+<ol>
+<li>Click <strong>Create new credential</strong>.</li>
+<li>Choose <strong>Sign in with Google</strong> and select your account.</li>
+<li>When you see "account connected", you are done.</li>
+</ol>
+<h3>Choose the sheet and filters</h3>
+<ul>
+<li><strong>Document:</strong> select <strong>By URL</strong> and paste the URL of your copied sheet</li>
+<li><strong>Sheet:</strong> Topics</li>
+<li><strong>Filter 1:</strong> column <strong>status</strong> equals <strong>finished</strong></li>
+<li><strong>Filter 2:</strong> column <strong>posted</strong> equals <strong>false</strong></li>
+</ul>
+<p>Then click <strong>Add option</strong> and choose <strong>Return only first matching row</strong>. This makes sure only one video is published at a time.</p>
+<p>Click <strong>Execute step</strong> to test it. You should see the next row that is finished but not yet posted. Rename the node to <strong>Get content</strong>.</p>
+
+<h2>Step 4: Write platform captions with OpenAI</h2>
+<p>Add an <strong>OpenAI</strong> node and choose the <strong>Message a Model</strong> action.</p>
+<h3>Add your API key</h3>
+<ol>
+<li>Click <strong>Create new credential</strong>.</li>
+<li>Go to <strong>platform.openai.com</strong>, sign in, open <strong>Settings</strong> and then <strong>API keys</strong>.</li>
+<li>Create a new secret key, give it a name, select a project and copy the key.</li>
+<li>Paste it into n8n and save. You should see that the connection test succeeded.</li>
+</ol>
+<p>Also open <strong>Billing</strong> in OpenAI and add 5 or 10 dollars of credit. Without credit, the API will not work.</p>
+<h3>Add the prompt</h3>
+<p>Pick an OpenAI chat model, then click into the prompt field and switch it to <strong>Expression</strong>. Paste the caption instructions from the creator's template document.</p>
+<p>The prompt begins with a line like "You are an expert social media copywriter. Write a high-performing caption for the topic." The topic is filled in automatically from your Google Sheet row.</p>
+<p>The instructions also include platform rules, such as:</p>
+<ul>
+<li>The <strong>maximum number of characters</strong> for each platform</li>
+<li>Whether to use <strong>line breaks or emojis</strong></li>
+<li>Up to <strong>ten hashtags</strong> at the end</li>
+<li>Placing the <strong>top keywords in the first 30 characters</strong></li>
+</ul>
+<p>If you do not like a rule, delete it or write your own. The end of the prompt tells the AI how to format its answer so the next nodes can use it.</p>
+<p>Scroll down and turn on <strong>Output Content as JSON</strong>. Click <strong>Execute step</strong> and open the <strong>Schema</strong> view to see one caption per platform. Rename the node to <strong>Captions agent</strong>.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/captions-agent-output.png" alt="One custom caption for every platform" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Captions agent output in schema view, showing a caption for each platform<br>Save as images/captions-agent-output.png</div><figcaption>One custom caption for every platform</figcaption></figure>
+
+<h2>Step 5: Connect Blotato</h2>
+<p>Blotato is the service that publishes to your social platforms. Sign up for an account, then open <strong>Settings</strong>.</p>
+<p>Connect each platform from there. For X, for example, click the login option and follow the steps. Repeat for every platform you want to post to.</p>
+<h3>Store your API key and account IDs</h3>
+<ol>
+<li>Add an <strong>Edit Fields</strong> node and set the mode to <strong>JSON</strong>.</li>
+<li>Paste the account IDs snippet from the template document.</li>
+<li>In Blotato settings, click <strong>Copy API key</strong> and paste it into the snippet.</li>
+<li>Copy the account ID for each connected platform from Blotato and paste it in as well.</li>
+<li>Click <strong>Execute step</strong> and rename the node to <strong>Account IDs</strong>.</li>
+</ol>
+<p>Now you can use these values anywhere in the workflow without typing them again.</p>
+
+<h2>Step 6: Upload the video to Blotato</h2>
+<p>The service needs the video on its own servers before posting. Here is how:</p>
+<ol>
+<li>Add an <strong>HTTP Request</strong> node and click <strong>Import cURL</strong>.</li>
+<li>Paste the <strong>upload video</strong> snippet from the template document and click <strong>Import</strong>.</li>
+<li>For the API key value, select <strong>Expression</strong>, delete the existing text and drag the API key from the <strong>Account IDs</strong> node.</li>
+<li>For the URL value, select <strong>Expression</strong> and drag in the <strong>video URL</strong> from the <strong>Get content</strong> node.</li>
+<li>Click <strong>Execute step</strong>.</li>
+</ol>
+<p>The result is a URL of the same video, now stored on Blotato. Rename the node, go back to the canvas and save.</p>
+
+<h2>Step 7: Post to Instagram</h2>
+<ol>
+<li>Add another <strong>HTTP Request</strong> node and use <strong>Import cURL</strong> with the <strong>post to Instagram</strong> snippet.</li>
+<li>Set the API key as an expression, dragged from the <strong>Account IDs</strong> node.</li>
+<li>Open the JSON body and click <strong>Expression</strong>.</li>
+<li>Replace the sample account with your <strong>Instagram account ID</strong>.</li>
+<li>Replace the sample caption with the <strong>Instagram Reels caption</strong> from the <strong>Captions agent</strong>.</li>
+<li>Replace the media URL with the <strong>URL returned by the upload step</strong>.</li>
+</ol>
+<p>This part is a little tricky. The caption text is not valid JSON as it is, because line breaks and quotes can break it. The creator solves this with a short snippet from the template document. Paste it after the caption value so the text is cleaned up.</p>
+<p>Click <strong>Execute step</strong>. A green checkmark means the post was sent. Rename the node.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/post-to-instagram-node.png" alt="The Instagram posting node" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Post to Instagram HTTP Request node with account ID, caption and media URL filled in<br>Save as images/post-to-instagram-node.png</div><figcaption>The Instagram posting node</figcaption></figure>
+
+<h2>Step 8: Post to YouTube and other platforms</h2>
+<p>Every other platform works the same way. For YouTube:</p>
+<ol>
+<li>Add an <strong>HTTP Request</strong> node and import the <strong>post to YouTube</strong> snippet.</li>
+<li>Set the API key as an expression from the <strong>Account IDs</strong> node.</li>
+<li>Replace the account with your <strong>YouTube account ID</strong>.</li>
+<li>Use the <strong>YouTube Shorts caption</strong> from the Captions agent for the caption fields.</li>
+<li>Use the <strong>upload URL</strong> as the media URL.</li>
+</ol>
+<p>Execute the step, check for the green checkmark and rename the node. Repeat for TikTok, Facebook, X and any other platform you connected.</p>
+
+<h2>Step 9: Merge the branches</h2>
+<p>Add a <strong>Merge</strong> node and set the mode to <strong>Choose Branch</strong>. Set the <strong>number of inputs</strong> to match your platforms. In the demo there are two, and with all nine platforms you would set it to nine.</p>
+<p>Connect every posting node to the Merge node. The workflow only moves on once <strong>all posts have finished</strong>.</p>
+
+<h2>Step 10: Mark the video as posted</h2>
+<p>Add a <strong>Google Sheets</strong> node and choose <strong>Update Row in Sheet</strong>.</p>
+<ul>
+<li><strong>Document:</strong> By URL, using the same sheet URL</li>
+<li><strong>Sheet:</strong> Topics</li>
+<li><strong>Column to match:</strong> topic</li>
+<li><strong>Value to match:</strong> drag the topic from the <strong>Get content</strong> node</li>
+<li><strong>Posted:</strong> set to <strong>true</strong></li>
+</ul>
+<p>You do not need to change the status or the video column. Execute the step and check your sheet. The row should now show as posted. Go back to the canvas and click <strong>Save</strong>.</p>
+
+<h2>A faster way: import the template</h2>
+<p>You can skip most of the building by importing the creator's ready-made workflow.</p>
+<ol>
+<li>In n8n, click <strong>Create Workflow</strong>.</li>
+<li>Click the <strong>three dots</strong> menu and choose <strong>Import from file</strong>.</li>
+<li>Select the template file you downloaded from the video description or community.</li>
+<li>Update the Google Sheets nodes with your copied sheet and credentials.</li>
+<li>Replace the API key and account IDs with your own.</li>
+</ol>
+
+<h2>Bonus: use it as a sub-workflow</h2>
+<p>You can also import the <strong>auto-publish sub-workflow</strong> from the same place. Import it, rename it (for example, <strong>Auto Upload Sub-workflow</strong>) and save.</p>
+<p>In any other workflow, add an <strong>Execute Sub-workflow</strong> node and select it. You only need to provide the <strong>topic</strong> and the <strong>video URL</strong>, and the rest runs as shown above. This is handy if you already make videos with another automation.</p>
+
+<h2>Quick summary</h2>
+<ul>
+<li>A schedule trigger reads the next unposted video from <strong>Google Sheets</strong>.</li>
+<li><strong>OpenAI</strong> writes a caption tuned for each platform.</li>
+<li><strong>Blotato</strong> uploads the video and posts it to every connected platform.</li>
+<li>A <strong>Merge</strong> node waits for all posts, then Google Sheets marks the row as posted.</li>
+</ul>
+<p>Something not working, such as the JSON caption fix or the API key? Send us a message on the <a href="contact.html">contact page</a> or leave a comment on the <a href="https://www.youtube.com/watch?v=LFO4cP0KMwk" target="_blank" rel="noopener">original video</a>, and we will help you out.</p>
+<p class="note"><strong>Credit:</strong> This guide is based on the YouTube video by <strong>Ed Hill | AI Automation</strong>. Watch the original here: <a href="https://www.youtube.com/watch?v=LFO4cP0KMwk" target="_blank" rel="noopener">Social media auto-publishing with n8n by Ed Hill | AI Automation</a>. All product names belong to their respective owners, and features or menu names may have changed since the video was published.</p>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Auto-Post Videos to Every Social Platform with n8n and AI Captions","description":"Build an n8n workflow that picks a video from Google Sheets, writes a custom caption for each platform and posts everywhere through one API.","datePublished":"2026-10-28","mainEntityOfPage":"https://automatuts.site/n8n-auto-post-social-media-blotato.html","publisher":{"@type":"Organization","name":"AutomaTuts"}}</script>
+</main>
+<footer>
+<div class="w">
+<div>&copy; 2026 AutomaTuts.site. All rights reserved.</div>
+<div><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div>
+</div>
+</footer>
+
+</body>
+</html>
