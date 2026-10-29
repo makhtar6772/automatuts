@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Post to TikTok from n8n for Free with Zapier and Buffer – AutomaTuts</title>
+<meta name="description" content="n8n has no TikTok node. Learn a free workaround using Google Sheets, Zapier and Buffer to auto-post videos to TikTok, step by step.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://automatuts.site/n8n-post-to-tiktok-zapier-buffer.html">
+<meta property="og:title" content="How to Post to TikTok from n8n for Free with Zapier and Buffer">
+<meta property="og:description" content="n8n has no TikTok node. Learn a free workaround using Google Sheets, Zapier and Buffer to auto-post videos to TikTok, step by step.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://automatuts.site/n8n-post-to-tiktok-zapier-buffer.html">
+<meta name="twitter:card" content="summary">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0f766e">
+<style>
+:root{--bg:#f6f7f9;--fg:#101828;--mut:#5b6678;--card:#fff;--bd:#dde1e8;--ac:#0f766e;--hi:#f59e0b}
+@media(prefers-color-scheme:dark){:root{--bg:#0d1117;--fg:#e6edf3;--mut:#9aa6b6;--card:#151b24;--bd:#263040;--ac:#2dd4bf;--hi:#fbbf24}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font:16px/1.7 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--fg)}
+h1,h2,h3,.logo{font-family:Georgia,"Times New Roman",serif}
+a{color:var(--ac)}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:3px solid var(--hi);outline-offset:2px}
+.w{max-width:1080px;margin:auto;padding:0 20px}
+header{position:sticky;top:0;background:var(--bg);border-bottom:1px solid var(--bd);z-index:5}
+nav{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;padding:14px 0}
+.logo{font-weight:700;font-size:1.4rem;text-decoration:none;color:var(--fg)}
+.logo b{color:var(--ac)}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:0;flex-wrap:wrap}
+nav ul a{color:var(--fg);text-decoration:none;font-weight:500;padding:6px 12px;border-radius:8px;display:block}
+nav ul a:hover{background:var(--card)}
+nav ul a.on{color:var(--ac);box-shadow:inset 0 -2px 0 var(--ac);border-radius:0}
+main{padding:36px 0 56px}
+.hero{padding:48px 0 28px;max-width:760px}
+.hero h1{font-size:clamp(2.1rem,5.5vw,3.4rem);line-height:1.12;margin:0 0 16px}
+.hero p{color:var(--mut);font-size:1.15rem;margin:0 0 24px;max-width:620px}
+.btn{display:inline-block;background:var(--ac);color:#fff;padding:12px 24px;border:0;border-radius:8px;font-weight:600;text-decoration:none;cursor:pointer;font-size:1rem;font-family:inherit}
+@media(prefers-color-scheme:dark){.btn{color:#04201d}}
+.btn:hover{filter:brightness(1.1)}
+h2{font-size:1.6rem;margin:44px 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--ac);border-radius:6px;padding:22px}
+.card:nth-child(even){border-left-color:var(--hi)}
+.card small{color:var(--mut);font-weight:600}
+.card h3{margin:6px 0 8px;font-size:1.2rem;line-height:1.35}
+.card p{margin:0;color:var(--mut);font-size:.95rem}
+.topics{display:flex;flex-wrap:wrap;gap:10px;padding:0;list-style:none}
+.topics li{border:1px solid var(--bd);background:var(--card);padding:6px 16px;border-radius:99px;font-size:.92rem}
+.doc{max-width:760px;margin:auto}
+.doc h1{font-size:2.3rem;line-height:1.2;margin:10px 0 6px}
+.doc h2{font-size:1.35rem;margin:34px 0 8px}
+.doc .date{color:var(--mut);margin:0 0 24px}
+.doc li{margin-bottom:6px}
+.note{background:var(--card);border:1px solid var(--bd);border-left:4px solid var(--hi);padding:14px 18px;border-radius:6px}
+form{display:grid;gap:16px;margin-top:20px}
+label{font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:11px 13px;border:1px solid var(--bd);border-radius:8px;background:var(--card);color:var(--fg);font:inherit}
+textarea{min-height:150px;resize:vertical}
+#status{font-weight:600;color:var(--ac);min-height:1.5em}
+footer{border-top:1px solid var(--bd);padding:28px 0;color:var(--mut);font-size:.92rem}
+footer .w{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--mut);margin-right:16px}
+footer a:hover{color:var(--ac)}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+.doc h3{font-size:1.15rem;margin:24px 0 6px}.video{width:100%;aspect-ratio:16/9;border:0;border-radius:8px;margin:18px 0}.meta{color:var(--mut);margin:0 0 20px}.card h3 a{color:inherit;text-decoration:none}.card h3 a:hover{color:var(--ac);text-decoration:underline}.shot{margin:18px 0}.shot img{max-width:100%;height:auto;border-radius:8px;display:block}.shot .ph{border:2px dashed var(--ac);border-radius:8px;padding:34px 16px;text-align:center;color:var(--mut);font-weight:600}.shot figcaption{color:var(--mut);font-size:.9rem;margin-top:6px;text-align:center}</style>
+</head>
+<body>
+<header>
+<div class="w">
+<nav aria-label="Main navigation">
+<a class="logo" href="index.html">Automa<b>Tuts</b></a>
+<ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="privacy-policy.html">Privacy</a></li><li><a href="disclaimer.html">Disclaimer</a></li></ul>
+</nav>
+</div>
+</header>
+<main class="w">
+<article class="doc">
+<h1>How to Post to TikTok from n8n for Free with Zapier and Buffer</h1>
+<p class="meta">Published October 29, 2026 &middot; 7 min read</p>
+<p>If you use <strong>n8n</strong>, you have probably searched for a TikTok node and found nothing. There is no easy built-in way to post videos to TikTok from n8n.</p>
+<p>This guide shows a free workaround. n8n adds a row to <strong>Google Sheets</strong>, <strong>Zapier</strong> notices the new row, and <strong>Buffer</strong> posts the video to your TikTok account.</p>
+
+<h2>Why posting to TikTok from n8n is hard</h2>
+<p>TikTok does have an official content posting API, but it is not meant for people who want to automate their own content. To use it, you need a <strong>verified website</strong> and an <strong>app verified by TikTok</strong>.</p>
+<p>It is built for real apps, such as video editors that let you post directly to TikTok. That leaves third-party tools.</p>
+<h3>Paid alternatives</h3>
+<p>Several services can post to TikTok for you, but most charge a starter fee. These were the prices in the video, so check the current ones before you decide:</p>
+<ul>
+<li><strong>Blotato:</strong> starts at about $29 per month and allows up to 900 TikTok posts per month</li>
+<li><strong>Upload-Post:</strong> has a free plan, but TikTok needs the basic plan at around $19 per month</li>
+<li><strong>Another tool:</strong> has a free plan without TikTok, and TikTok costs $149 per month</li>
+</ul>
+<h3>Why Buffer, even without an API</h3>
+<p><strong>Buffer</strong> has a free plan that supports TikTok posting with unlimited videos. The catch is that Buffer has no public API right now. The only way to reach it from automation is through <strong>Zapier</strong>.</p>
+
+<h2>How the workaround works</h2>
+<ol>
+<li>Your n8n workflow adds a row to a <strong>Google Sheet</strong> with the video URL and the title.</li>
+<li>A <strong>Zapier</strong> workflow (called a Zap) triggers when a new row appears.</li>
+<li>Zapier sends the video to <strong>Buffer</strong>.</li>
+<li>Buffer posts it to <strong>TikTok</strong>.</li>
+</ol>
+<p>The Google Sheet is just a bridge between n8n and Zapier.</p>
+<h3>Is it really free?</h3>
+<p>Yes, if you stay on the free plans. Zapier's free plan gives you <strong>100 tasks per month</strong>. Each post uses one task, so that is about 100 TikToks a month, or roughly three per day.</p>
+<p>One thing to know: after a row is added, the video can take <strong>up to 15 minutes</strong> to show up on TikTok.</p>
+
+<h2>Step 1: Create the Google Sheet</h2>
+<p>Make a new Google Sheet to move data between n8n and Zapier. It needs two columns:</p>
+<ul>
+<li><strong>Column A:</strong> video URL</li>
+<li><strong>Column B:</strong> title</li>
+</ul>
+<p>In the video, the file is named "n8n to Zapier to Buffer to TikTok" and uses the default tab, <strong>Sheet1</strong>.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/tiktok-sheet.png" alt="The Google Sheet used to pass data between n8n and Zapier" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Google Sheet with the video URL and title columns<br>Save as images/tiktok-sheet.png</div><figcaption>The Google Sheet used to pass data between n8n and Zapier</figcaption></figure>
+
+<h2>Step 2: Add the Google Sheets node in n8n</h2>
+<p>Open the n8n workflow where you want to post to TikTok. Add a <strong>Google Sheets</strong> node and choose the <strong>Append Row in Sheet</strong> action.</p>
+<ol>
+<li>Select your <strong>document</strong> (the sheet you just made).</li>
+<li>Select the <strong>sheet</strong>, which is Sheet1.</li>
+<li>Under values to send, map your <strong>video URL</strong> to the video column and your <strong>title</strong> to the title column.</li>
+</ol>
+<p>That is all n8n needs to do. This one node is your "post to TikTok" node.</p>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/n8n-append-row-tiktok.png" alt="The n8n node that sends the video to the sheet" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The n8n Google Sheets Append Row node with video URL and title mapped<br>Save as images/n8n-append-row-tiktok.png</div><figcaption>The n8n node that sends the video to the sheet</figcaption></figure>
+
+<h2>Step 3: Connect TikTok to Buffer</h2>
+<ol>
+<li>Create a free <strong>Buffer</strong> account.</li>
+<li>In the channels list on the left, choose <strong>TikTok</strong> and click <strong>Connect TikTok</strong>.</li>
+<li>A page opens showing your TikTok account. Make sure you are already <strong>logged in to TikTok in another tab</strong>.</li>
+<li>Click <strong>Finish connection</strong>.</li>
+</ol>
+<p>Your TikTok account now appears in the left panel, and Buffer is ready to post.</p>
+
+<h2>Step 4: Build the Zap in Zapier</h2>
+<p>Create a free <strong>Zapier</strong> account. In the top left, click <strong>Create</strong> and then <strong>Zaps</strong>.</p>
+<h3>Set the trigger</h3>
+<ol>
+<li>Choose <strong>Google Sheets</strong> as the trigger app.</li>
+<li>For the trigger event, select <strong>New Spreadsheet Row</strong>.</li>
+<li>Pick your Google account. If it is not connected yet, log in as you would for any other app.</li>
+<li>Select your <strong>spreadsheet</strong> and your <strong>worksheet</strong> (Sheet1), then continue.</li>
+</ol>
+<p>Before you move on, make sure the sheet is <strong>clean</strong> and do not change its columns afterward. Editing the sheet while the Zap is on can cause bugs, so let n8n add all the rows.</p>
+<p>When Zapier asks you to test the trigger, it will say that no rows were found. That is fine. Skip the test and continue.</p>
+<h3>Set the Buffer action</h3>
+<ol>
+<li>Search for <strong>Buffer</strong> and choose the action event <strong>Add to Queue</strong>.</li>
+<li>Log in to your Buffer account and continue.</li>
+<li>For <strong>Organization</strong>, select your organization.</li>
+<li>For <strong>Channel</strong>, select your TikTok account.</li>
+<li>For <strong>Text</strong>, map <strong>column B</strong> (the title).</li>
+<li>For <strong>Media</strong>, choose <strong>Video</strong>, and in the video box map <strong>column A</strong> (the video URL).</li>
+<li>For <strong>Method</strong>, choose <strong>Share Now</strong> so the video is published right away.</li>
+</ol>
+<figure class="shot"><!-- REPLACE the box below with: <img src="images/zapier-buffer-step.png" alt="The Buffer step in Zapier" width="1200" height="675" loading="lazy"> --><div class="ph">SCREENSHOT NEEDED: The Zapier Buffer Add to Queue step with channel, text, video and Share Now set<br>Save as images/zapier-buffer-step.png</div><figcaption>The Buffer step in Zapier</figcaption></figure>
+
+<p>Continue, test the step and <strong>publish</strong> the Zap. Zapier may run real actions during a test, so use a video you are happy to post.</p>
+
+<h2>Step 5: Test the whole thing</h2>
+<p>Run your n8n workflow. The new row appears in your Google Sheet. Within about 15 minutes, the video shows up on your TikTok account with its title and audio.</p>
+<p>In the demo, the creator used a Set node with a video URL and a title just for testing. In your own workflow, you would connect the Append Row node to wherever your video and title come from.</p>
+
+<h2>Quick summary</h2>
+<ul>
+<li>n8n has no TikTok node, and TikTok's official API requires a verified app.</li>
+<li>A free workaround is <strong>n8n to Google Sheets to Zapier to Buffer to TikTok</strong>.</li>
+<li>The free plans allow about <strong>100 posts a month</strong>, or three a day.</li>
+<li>Posts can take up to 15 minutes to appear.</li>
+<li>Keep the Google Sheet clean and untouched once the Zap is on.</li>
+</ul>
+<p>Did something not work, such as the Buffer connection or the Zapier trigger? Send us a message on the <a href="contact.html">contact page</a> or leave a comment on the <a href="https://www.youtube.com/watch?v=6qQYLr2HhR4" target="_blank" rel="noopener">original video</a>, and we will help you out.</p>
+<p class="note"><strong>Credit:</strong> This guide is based on the YouTube video by <strong>Arley</strong>. Watch the original here: <a href="https://www.youtube.com/watch?v=6qQYLr2HhR4" target="_blank" rel="noopener">Post to TikTok from n8n by Arley</a>. All product names belong to their respective owners. Prices, free plan limits and menu names may have changed since the video was published.</p>
+</article>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"How to Post to TikTok from n8n for Free with Zapier and Buffer","description":"n8n has no TikTok node. Learn a free workaround using Google Sheets, Zapier and Buffer to auto-post videos to TikTok, step by step.","datePublished":"2026-10-29","mainEntityOfPage":"https://automatuts.site/n8n-post-to-tiktok-zapier-buffer.html","publisher":{"@type":"Organization","name":"AutomaTuts"}}</script>
+</main>
+<footer>
+<div class="w">
+<div>&copy; 2026 AutomaTuts.site. All rights reserved.</div>
+<div><a href="index.html">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="disclaimer.html">Disclaimer</a></div>
+</div>
+</footer>
+
+</body>
+</html>
